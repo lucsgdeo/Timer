@@ -4,25 +4,27 @@ const pausarBtn = document.querySelector('#pausar');
 const zerarBtn = document.querySelector('#zerar');
 let segundos = 0, intervalo;
 
-inciarBtn.addEventListener('click', () => {
-    inciarBtn.disabled = true;
-    intervalo = setInterval(() => {
-        segundos++
+document.addEventListener('click', e => {
+    if (e.target.id === 'inciar') {
+        inciarBtn.disabled = true;
+        intervalo = setInterval(() => {
+            segundos++
+            setRelogio(segundos)
+        }, 1000)
+    }
+
+    if (e.target.id === 'pausar') {
+        timer.classList.add('pausado')
+        inciarBtn.disabled = false;
+        clearInterval(intervalo)
+    }
+
+    if (e.target.id === 'zerar') {
+        inciarBtn.disabled = false;
+        clearInterval(intervalo)
+        segundos = 0
         setRelogio(segundos)
-    }, 1000)
-});
-
-pausarBtn.addEventListener('click', () => {
-    timer.classList.add('pausado')
-    inciarBtn.disabled = false;
-    clearInterval(intervalo)
-});
-
-zerarBtn.addEventListener('click', () => {
-    inciarBtn.disabled = false;
-    clearInterval(intervalo)
-    segundos = 0
-    setRelogio(segundos)
+    }
 });
 
 setRelogio(segundos)
